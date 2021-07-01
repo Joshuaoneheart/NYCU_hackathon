@@ -64,10 +64,11 @@ def handle_message(event):
     message = event.message.text
     if message == 'flex':
         import json
-        test_flex = json.loads("./flex.json")
-        line_bot_api.reply_message(
-               event.reply_token,
-               FlexSendMessage(contents=test_flex))
+        with open("./flex.json") as json_file:
+            test_flex = json.load(json_file)
+            line_bot_api.reply_message(
+                   event.reply_token,
+                FlexSendMessage(contents=test_flex))
     else:
         line_bot_api.reply_message(
             event.reply_token,
