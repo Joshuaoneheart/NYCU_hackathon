@@ -16,7 +16,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, flex_message, 
+    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage,
 )
 
 import sys
@@ -79,7 +79,7 @@ def handle_message(event):
                         ]
                     }
                 }
-        ret_message = FlexSendMessage(contents=test_flex)
+        ret_message = FlexSendMessage(alt_text='wHYyyYYY?', contents=test_flex)
     else:
         ret_message = TextSendMessage(text="Please leave me alone")
     
