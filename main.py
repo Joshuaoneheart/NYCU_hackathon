@@ -16,7 +16,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, 
+    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, flex_message, 
 )
 
 import sys
@@ -66,13 +66,13 @@ def handle_message(event):
         import json
         with open("./flex.json") as json_file:
             test_flex = json.load(json_file)
-            line_bot_api.reply_message(
-                   event.reply_token,
-                FlexSendMessage(contents=test_flex))
+            ret_message = FlexSendMessage(contents=test_flex)
     else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text="Please leave me alone"))
+        ret_message = TextSendMessage(text="Please leave me alone")
+    
+    line_bot_api.reply_message(
+        event.reply_token,
+        ret_message)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
