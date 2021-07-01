@@ -26,6 +26,7 @@ app = Flask(__name__)
 # getting channel secret
 CHANNEL_SECRET='fc8cc9fe10d8ff1fab2b2eee096fe07a'
 CHANNEL_TOKEN='1uyGxBSEz3dN3GACCh7X2RJR+96zxZyb/NYnFrw0DfsWy72ZxbRpqAiLRMLbtXOetskvNi4xQVfqOxWeBnopb5crdJ3SgXGAwncOBMvlsKasnLI+lpsejB9l86k34B28RZMV1dXQAo/gbY2thp1HGQdB04t89/1O/w1cDnyilFU='
+#  This would be the preferred approach but it just doesn't work
 #  CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
 #  CHANNEL_TOKEN = os.getenv('LINE_CHANNEL_TOKEN')
 
@@ -63,10 +64,22 @@ def callback():
 def handle_message(event):
     message = event.message.text
     if message == 'flex':
-        import json
-        with open("./flex.json") as json_file:
-            test_flex = json.load(json_file)
-            ret_message = FlexSendMessage(contents=test_flex)
+        test_flex = {
+                "type": "bubble",      
+                "body": {
+                    "type": "box",
+                    "layout": "horizontal", 
+                    "contents": [ 
+                        {
+                            "type": "text",                             "text": "Hello,"
+                            },
+                        {
+                            "type": "text",                             "text": "World!"
+                            }
+                        ]
+                    }
+                }
+        ret_message = FlexSendMessage(contents=test_flex)
     else:
         ret_message = TextSendMessage(text="Please leave me alone")
     
