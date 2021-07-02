@@ -1,5 +1,5 @@
 import os
-
+from config import *
 if os.getenv("DEV") is not None:
     from dotenv import load_dotenv
     
@@ -23,8 +23,6 @@ from linebot.models import (
 app = Flask(__name__)
 
 # getting channel secret
-CHANNEL_SECRET='fc8cc9fe10d8ff1fab2b2eee096fe07a'
-CHANNEL_TOKEN='1uyGxBSEz3dN3GACCh7X2RJR+96zxZyb/NYnFrw0DfsWy72ZxbRpqAiLRMLbtXOetskvNi4xQVfqOxWeBnopb5crdJ3SgXGAwncOBMvlsKasnLI+lpsejB9l86k34B28RZMV1dXQAo/gbY2thp1HGQdB04t89/1O/w1cDnyilFU='
 #  This would be the preferred approach but it just doesn't work
 #  CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
 #  CHANNEL_TOKEN = os.getenv('LINE_CHANNEL_TOKEN')
