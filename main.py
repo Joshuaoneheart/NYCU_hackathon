@@ -18,9 +18,7 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage,
-)
+from linebot.models import *
 
 app = Flask(__name__)
 
@@ -116,7 +114,7 @@ def handle_message(event):
                     ]))
 
     elif STATE == "init" and message == "查詢附近的採檢站":
-        pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))[0]
+        pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))
         msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
         ret_message = TextSendMessage(
                 text=msg,
