@@ -115,16 +115,6 @@ def handle_message(event):
                             action=URIAction(label='Covid19篩檢站', uri='https://antiflu.cdc.gov.tw/ExaminationCounter')
                         )
                     ]))
-    '''
-    elif STATE == "diagnosis_complete" and DISEASE == "heart" and message == "相關疾病查詢":
-        msg =  "1. 心肌炎\n"
-        msg += "2. 心絞痛(反覆胸痛)\n"
-        msg += "3. 急性心肌梗塞(重壓、極度疼痛)\n"
-        msg += "4. 氣胸\n"
-        msg += "5. 消化潰瘍\n"
-        msg += "～～請點選您想要查詢的疾病～～"
-        STATE[user] = 0
-    '''
     elif STATE[user] == 0 and message == "醫療小知識":
         STATE[user] = 4
         msg = "請問要詢問那一科呢？"
@@ -166,7 +156,6 @@ def handle_message(event):
                 text="要看哪一科呢?",
                 quick_reply=QuickReply(items=qr))
     elif STATE[user] == 2:
-        # get_hospital_by_department
         msg = "請提供您的位置"
         DEPARTMENT[user] = message
         ret_message = TextSendMessage(
@@ -195,6 +184,7 @@ ADDRESS = None
 def handle_location_message(event):
 
     global STATE
+    global DEPARTMENT
     user = event.source.user_id
     LATITUDE = event.message.latitude
     LONGITUDE = event.message.longitude
@@ -203,6 +193,7 @@ def handle_location_message(event):
         msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
         ret_message = TextSendMessage(text=msg)
     elif STATE[user] == 2:
+        # get_hospital_by_department DEPARTMENT[user]
         test_flex = json.load(open("./flex/hospital.json", "r"))
         ret_message = FlexSendMessage(alt_text='hospital', contents=test_flex)
     STATE[user] == 0
