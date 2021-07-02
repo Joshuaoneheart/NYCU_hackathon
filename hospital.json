@@ -1,0 +1,322 @@
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "size": "micro",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "320:213",
+        "position": "relative",
+        "url": "https://media.nownews.com/nn_media/thumbnail/2019/01/1548070591-709e215c195593b0189f441d0bcdae47-696x464.jpg",
+        "offsetTop": "none",
+        "offsetBottom": "none"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "National Taiwan University Hospital",
+            "weight": "bold",
+            "size": "md",
+            "wrap": true,
+            "margin": "none",
+            "style": "normal",
+            "decoration": "none",
+            "position": "relative",
+            "align": "start",
+            "gravity": "top"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "icon",
+                "size": "sm",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg",
+                "margin": "none"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg",
+                "margin": "none",
+                "offsetTop": "none"
+              },
+              {
+                "type": "text",
+                "text": "busy",
+                "size": "md",
+                "color": "#8c8c8c",
+                "margin": "xs",
+                "flex": 0,
+                "weight": "regular",
+                "style": "normal",
+                "decoration": "none",
+                "position": "relative",
+                "align": "start",
+                "gravity": "center",
+                "wrap": true
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "spacing": "xxl",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "台大醫院",
+                    "wrap": true,
+                    "color": "#8c8c8c",
+                    "size": "xs",
+                    "margin": "none",
+                    "action": {
+                      "type": "uri",
+                      "label": "action",
+                      "uri": "https://www.ntuh.gov.tw/ntuh/ntuhgroup.jsp"
+                    },
+                    "offsetTop": "none"
+                  }
+                ],
+                "action": {
+                  "type": "datetimepicker",
+                  "label": "action",
+                  "data": "hello",
+                  "mode": "date"
+                }
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "網路掛號",
+                  "uri": "https://www.ntuh.gov.tw/ntuh/Fpage.action?muid=95&fid=5956"
+                },
+                "gravity": "top",
+                "style": "link",
+                "position": "relative"
+              },
+              {
+                "type": "separator",
+                "margin": "none"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "地圖",
+                  "text": "https://www.google.com/maps/place/臺大醫院/@25.0407391,121.517892,18z/data=!4m9!1m2!2m1!1z5Y-w5aSn6Yar6ZmiIOWcsOWclg!3m5!1s0x3442a973c658b995:0xfde0dc33b0bfb0ff!8m2!3d25.0407391!4d121.5189863!15sChPlj7DlpKfphqvpmaIg5Zyw5ZyWkgETdW5pdmVyc2l0eV9ob3NwaXRhbA"
+                },
+                "margin": "none",
+                "height": "md"
+              },
+              {
+                "type": "separator"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "聯絡諮詢",
+                  "text": "02-2312-3456"
+                }
+              }
+            ],
+            "position": "relative",
+            "paddingAll": "none"
+          }
+        ],
+        "spacing": "lg",
+        "paddingAll": "lg",
+        "position": "relative",
+        "margin": "lg",
+        "borderWidth": "none",
+        "action": {
+          "type": "uri",
+          "label": "action",
+          "uri": "http://linecorp.com/"
+        }
+      },
+      "styles": {
+        "header": {
+          "separator": false,
+          "backgroundColor": "#ffffff"
+        },
+        "footer": {
+          "separator": false
+        }
+      }
+    },
+    {
+      "type": "bubble",
+      "size": "micro",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "320:213",
+        "position": "relative",
+        "url": "https://img.ltn.com.tw/Upload/news/600/2020/02/16/79.jpg",
+        "offsetTop": "none",
+        "offsetBottom": "none"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Taipei Medical University",
+            "weight": "bold",
+            "size": "md",
+            "wrap": true,
+            "margin": "none",
+            "style": "normal",
+            "decoration": "none",
+            "position": "relative",
+            "align": "start",
+            "gravity": "top"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "icon",
+                "size": "sm",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg",
+                "margin": "none"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg"
+              },
+              {
+                "type": "icon",
+                "size": "xs",
+                "url": "https://ae01.alicdn.com/kf/H4ec918b378084882a795c354fb44f748m.jpg",
+                "margin": "none",
+                "offsetTop": "none"
+              },
+              {
+                "type": "text",
+                "text": "busy",
+                "size": "md",
+                "color": "#8c8c8c",
+                "margin": "xs",
+                "flex": 0,
+                "weight": "regular",
+                "style": "normal",
+                "decoration": "none",
+                "position": "relative",
+                "align": "start",
+                "gravity": "center",
+                "wrap": true
+              }
+            ],
+            "offsetTop": "xxl",
+            "spacing": "none",
+            "paddingAll": "none",
+            "paddingStart": "none"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "spacing": "xxl",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "臺北醫學大學附設醫院",
+                    "wrap": true,
+                    "color": "#8c8c8c",
+                    "size": "xs",
+                    "flex": 5,
+                    "margin": "none",
+                    "action": {
+                      "type": "uri",
+                      "label": "action",
+                      "uri": "https://www.tmuh.org.tw"
+                    },
+                    "offsetTop": "none"
+                  }
+                ],
+                "action": {
+                  "type": "datetimepicker",
+                  "label": "action",
+                  "data": "hello",
+                  "mode": "date"
+                }
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "網路掛號",
+                  "uri": "https://www.tmuh.org.tw/service/regist"
+                },
+                "gravity": "top",
+                "style": "link",
+                "position": "relative"
+              },
+              {
+                "type": "separator",
+                "margin": "none"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "地圖",
+                  "text": "https://www.google.com/maps?client=safari&rls=en&sxsrf=ALeKk03gQrIuypQLMqa0kRnhE2t_2X9aeg:1625175059162&q=台北醫學大學醫院&biw=1280&bih=613&dpr=2&um=1&ie=UTF-8&sa=X&ved=2ahUKEwin18CD6cLxAhWkKqYKHWzRBbMQ_AUoAXoECAIQAw"
+                },
+                "margin": "none",
+                "height": "md"
+              },
+              {
+                "type": "separator"
+              },
+          }
+      }
+    }
+}
