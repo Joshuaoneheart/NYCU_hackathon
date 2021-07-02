@@ -6,6 +6,7 @@ if os.getenv("DEV") is not None:
     load_dotenv(dotenv_path='./.env')
 
 import sys
+import json
 
 from flask import Flask, request, abort
 
@@ -18,8 +19,6 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FlexSendMessage,
 )
-
-import sys
 
 app = Flask(__name__)
 
@@ -64,22 +63,8 @@ def callback():
 def handle_message(event):
     message = event.message.text
     if message == 'flex':
-        test_flex = {
-                "type": "bubble",      
-                "body": {
-                    "type": "box",
-                    "layout": "horizontal", 
-                    "contents": [ 
-                        {
-                            "type": "text",                             "text": "Hello,"
-                            },
-                        {
-                            "type": "text",                             "text": "World!"
-                            }
-                        ]
-                    }
-                }
-        ret_message = FlexSendMessage(alt_text='wHYyyYYY?', contents=test_flex)
+        test_flex = json.load(open("./flex/hospital.json", "r"))
+        ret_message = FlexSendMessage(alt_text='hospital', contents=test_flex)
     else:
         ret_message = TextSendMessage(text="Please leave me alone")
     
