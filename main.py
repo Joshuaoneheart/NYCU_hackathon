@@ -8,6 +8,7 @@ if os.getenv("DEV") is not None:
 
 import sys
 import json
+import time
 from hospital import *
 
 from flask import Flask, request, abort
@@ -103,6 +104,7 @@ def handle_message(event):
 
     elif STATE[user] == 0 and message == "醫療小知識":
         STATE[user] = 4
+        time.sleep(1)
         msg = "請問要詢問那一科呢？"
         qr = [QuickReplyButton(action=MessageAction(label=department, text=department)) for department in DEPARTMENTS]
         ret_message = TextSendMessage(
@@ -138,6 +140,7 @@ def handle_message(event):
 
     elif STATE[user] == 0 and message == "查詢附近的醫院":
         STATE[user] = 2
+        time.sleep(1)
         qr = [QuickReplyButton(action=MessageAction(label=department, text=department)) for department in DEPARTMENTS]
         
         ret_message = TextSendMessage(
