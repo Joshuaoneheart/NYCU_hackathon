@@ -73,6 +73,8 @@ def handle_message(event):
         msg = "初步分析結果：\n您應該確診了！！！\n\n建議掛科：\n胸腔內科\n\n可能病因：\nCOVID-19"
         STATE = "init"
         ret_message = TextSendMessage(text=msg)
+    elif message == "debug":
+        ret_message = TextSendMessage(text=STATE)
     else:
         ret_message = TextSendMessage(text="Please leave me alone")
     
