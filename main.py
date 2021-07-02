@@ -189,7 +189,6 @@ def handle_location_message(event):
     user = event.source.user_id
     LATITUDE = event.message.latitude
     LONGITUDE = event.message.longitude
-    ret_message = str(STATE[user])
     if STATE[user] == 3:
         pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))
         msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
@@ -198,6 +197,9 @@ def handle_location_message(event):
         # get_hospital_by_department DEPARTMENT[user]
         test_flex = json.load(open("./flex/hospital.json", "r"))
         ret_message = FlexSendMessage(alt_text='hospital', contents=test_flex)
+    else:
+        ret_message = TextSendMessage(text=str(STATE[user]))
+    
     STATE[user] = 0
     line_bot_api.reply_message(event.reply_token, ret_message)
 
