@@ -8,6 +8,7 @@ if os.getenv("DEV") is not None:
 
 import sys
 import json
+from hospital import *
 
 from flask import Flask, request, abort
 
@@ -115,7 +116,8 @@ def handle_message(event):
                     ]))
 
     elif STATE == "init" and message == "查詢附近的採檢站":
-        msg = "離您最近的採檢站為：\n台大醫院\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/%E8%87%BA%E5%A4%A7%E9%86%AB%E9%99%A2/@25.0424548,121.5071815,16z/data=!3m1!4b1?hl=zh-TW"
+        pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))[0]
+        msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
         ret_message = TextSendMessage(
                 text=msg,
                 quick_reply=QuickReply(
