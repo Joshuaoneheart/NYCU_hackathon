@@ -173,6 +173,8 @@ def handle_location_message(event):
     user = event.source.user_id
     LATITUDE = event.message.latitude
     LONGITUDE = event.message.longitude
+    if user not in STATE:
+        ret_message = TextSendMessage(text=str("User Unknown"))
     if STATE[user] == 3:
         pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))
         msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
