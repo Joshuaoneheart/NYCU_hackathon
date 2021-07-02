@@ -1,3 +1,3 @@
 CHANNEL_SECRET='fc8cc9fe10d8ff1fab2b2eee096fe07a'
 CHANNEL_TOKEN='1uyGxBSEz3dN3GACCh7X2RJR+96zxZyb/NYnFrw0DfsWy72ZxbRpqAiLRMLbtXOetskvNi4xQVfqOxWeBnopb5crdJ3SgXGAwncOBMvlsKasnLI+lpsejB9l86k34B28RZMV1dXQAo/gbY2thp1HGQdB04t89/1O/w1cDnyilFU='
-DEPARTMENTS=["家庭醫學科","內科","外科","整形外科","兒科","婦產科","骨科","泌尿科","耳鼻喉科","眼科","皮膚科","精神科","神經科","神經外科","復健科","麻醉科","放射診斷科","放射腫瘤科","解剖病理科","臨床病理科","核子醫學科","急診醫學科","職業醫學科","西醫一般科","口腔病理科","口腔顏面外科","齒顎矯正科","牙科一般","牙科","中醫一般科","中醫"]
+DEPARTMENTS=["胸腔內科","外科","心臟科","骨科","泌尿科","耳鼻喉科","皮膚科","神經科","神經外科"]
