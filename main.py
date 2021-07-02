@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from config import *
 if os.getenv("DEV") is not None:
@@ -56,6 +57,7 @@ def callback():
 
     return 'OK'
 
+STATE = "init"
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -63,6 +65,14 @@ def handle_message(event):
     if message == 'flex':
         test_flex = json.load(open("./flex/hospital.json", "r"))
         ret_message = FlexSendMessage(alt_text='hospital', contents=test_flex)
+    elif message == "初步診斷" and STATE == "init":
+        msg = "請簡述您的症狀"
+        STATE = "diagnosis"
+        ret_message = TextSendMessage(text=msg)
+    elif STATE == "diagnosis":
+        msg = "初步分析結果：\n您應該確診了！！！\n\n建議掛科：\n胸腔內科\n\n可能病因：\nCOVID-19"
+        STATE = "init"
+        ret_message = TextSendMessage(text=msg)
     else:
         ret_message = TextSendMessage(text="Please leave me alone")
     
