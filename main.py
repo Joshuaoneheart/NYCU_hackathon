@@ -72,7 +72,7 @@ def handle_message(event):
         STATE[user] = 1
         ret_message = TextSendMessage(text=msg)
 
-    elif STATE[user] == 1 and (("胸悶" and "疲累") in message):
+    elif STATE[user] == 1 and ("胸悶" in message) and ("疲累" in message):
         msg =  '''初步分析結果：\n
         心臟、肺臟、其他\n\n
         建議掛科：\n
@@ -97,7 +97,7 @@ def handle_message(event):
                             action=MessageAction(label="其他服務", text="其他服務")
                         )
                     ]))
-    elif STATE[user] == 1 and ((("呼吸" and "困難") or "嘨喘") in message):
+    elif STATE[user] == 1 and ("呼吸困難" in message) or ("嘨喘" in message):
         STATE[user] = 0
         msg =  '''初步分析結果：\n
                   氣管阻塞、氣喘、慢性阻塞性肺病(COPD)、肺栓塞\n"
@@ -123,10 +123,12 @@ def handle_message(event):
             text=msg,
             quick_reply=QuickReply(items=qr)
         )
+        
     elif STATE[user] == 4:
         STATE[user] = 5
         msg = f"請問想了解{message}的什麼疾病呢？"
         ret_message = TextSendMessage(text=msg)
+
     elif STATE[user] == 6:
         STATE[user] = 0
         msg = "提供以下資訊給您參考：\nhttps://www.cdc.gov.tw/En"
@@ -173,7 +175,6 @@ def handle_message(event):
         STATE[user] = 0
         ret_message = TextSendMessage(text='你好！！我是 Kompanion，您的智慧醫療小助手！請問我能夠幫您什麼呢？')
 
-    
     line_bot_api.reply_message(event.reply_token, ret_message)
 
 LATITUDE = None
@@ -188,6 +189,7 @@ def handle_location_message(event):
     user = event.source.user_id
     LATITUDE = event.message.latitude
     LONGITUDE = event.message.longitude
+    ret_message = str(STATE[user])
     if STATE[user] == 3:
         pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))
         msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
