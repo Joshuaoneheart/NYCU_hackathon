@@ -196,7 +196,7 @@ def handle_location_message(event):
         # get_hospital_by_department DEPARTMENT[user]
         test_flex = json.load(open("./flex/hospital.json", "r"))
         ret_message = FlexSendMessage(alt_text='hospital', contents=test_flex)
-    STATE[user] == 0
+    STATE[user] = 0
     line_bot_api.reply_message(event.reply_token, ret_message)
 
 if __name__ == "__main__":
