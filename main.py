@@ -73,15 +73,7 @@ def handle_message(event):
         ret_message = TextSendMessage(text=msg)
 
     elif STATE[user] == 1 and ("胸悶" in message) and ("疲累" in message):
-        msg =  '''初步分析結果：\n
-        心臟、肺臟、其他\n\n
-        建議掛科：\n
-        心臟科、胸腔科\n\n
-        可能病因：\n
-        感染\n\n
-        建議：\n
-        若為心臟方面疾病，需盡快就醫檢查
-        初步分析結果：\n心肌炎\n\n建議掛科：\n胸腔內科\n\n可能病因：\n壓力過大'''
+        msg =  "初步分析結果：\n心臟、肺臟、其他\n\n建議掛科：\n心臟科、胸腔內科\n\n可能病因：\n感染\n\n建議：\n若為心臟方面疾病，需盡快就醫檢查"
         STATE[user] = 0
         ret_message = TextSendMessage(
                 text=msg,
@@ -99,14 +91,7 @@ def handle_message(event):
                     ]))
     elif STATE[user] == 1 and ("呼吸困難" in message) or ("嘨喘" in message):
         STATE[user] = 0
-        msg =  '''初步分析結果：\n
-                  氣管阻塞、氣喘、慢性阻塞性肺病(COPD)、肺栓塞\n"
-                  近期covid19疫情嚴重，若仍有發燒、咳嗽等症狀同時出現，可能為新冠肺炎之感染!\n\n"
-                  建議掛科：\n
-                  胸腔科、感染科\n
-                  COVID-19患者請前往急診篩檢\n\n
-                  可能病因：\n
-                  肺部感染、心衰竭'''
+        msg =  "初步分析結果：\n氣管阻塞、氣喘、慢性阻塞性肺病(COPD)、肺栓塞\n近期covid19疫情嚴重，若仍有發燒、咳嗽等症狀同時出現，可能為新冠肺炎之感染!\n\n建議掛科：\n胸腔科、感染科\nCOVID-19患者請前往急診篩檢\n\n可能病因：\n肺部感染、心衰竭"
         ret_message = TextSendMessage(
                 text=msg,
                 quick_reply=QuickReply(
@@ -115,6 +100,7 @@ def handle_message(event):
                             action=URIAction(label='Covid19篩檢站', uri='https://antiflu.cdc.gov.tw/ExaminationCounter')
                         )
                     ]))
+
     elif STATE[user] == 0 and message == "醫療小知識":
         STATE[user] = 4
         msg = "請問要詢問那一科呢？"
@@ -129,7 +115,7 @@ def handle_message(event):
         msg = f"請問想了解{message}的什麼疾病呢？"
         ret_message = TextSendMessage(text=msg)
 
-    elif STATE[user] == 6:
+    elif STATE[user] == 5:
         STATE[user] = 0
         msg = "提供以下資訊給您參考：\nhttps://www.cdc.gov.tw/En"
 
@@ -157,6 +143,7 @@ def handle_message(event):
         ret_message = TextSendMessage(
                 text="要看哪一科呢?",
                 quick_reply=QuickReply(items=qr))
+
     elif STATE[user] == 2:
         msg = "請提供您的位置"
         DEPARTMENT[user] = message
@@ -171,15 +158,12 @@ def handle_message(event):
                             action=MessageAction(label="其他服務", text="其他服務")
                         )
                     ]))
+
     else:
         STATE[user] = 0
         ret_message = TextSendMessage(text='你好！！我是 Kompanion，您的智慧醫療小助手！請問我能夠幫您什麼呢？')
 
     line_bot_api.reply_message(event.reply_token, ret_message)
-
-LATITUDE = None
-LONGITUDE = None
-ADDRESS = None
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
