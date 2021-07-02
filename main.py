@@ -56,33 +56,33 @@ def callback():
 
     return 'OK'
 
-STATE = "init"
-LAST_STATE = "init"
-DISEASE = None
 
+STATE = {}
+DEPARTMENT = {}
+# state: 0(init), 1(diagnosis), 2(hospital), 3(covid-19), 4(knowledge), 5(knowledge_disease)
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     global STATE
-    global DISEASE
-    print(event)
+    user = event.source.user_id
+    if user not in STATE:
+        STATE[user] = 0
     message = event.message.text
-    
-    if message == "初步診斷" and STATE == "init":
+    if message == "初步診斷" and STATE[user] == 0:
         msg = "請簡述您的症狀"
-        STATE = "diagnosis"
+        STATE[user] = 1
         ret_message = TextSendMessage(text=msg)
 
-    elif STATE == "diagnosis" and (("胸悶" and "疲累") in message):
-        STATE = "diagnosis_complete"
-        DISEASE = "heart"
-        msg =  "初步分析結果：\n"
-        msg += "心臟、肺臟、其他\n\n"
-        msg += "建議掛科：\n"
-        msg += "心臟科、胸腔科\n\n"
-        msg += "可能病因：\n"
-        msg += "感染\n\n"
-        msg += "建議：\n"
-        msg += "若為心臟方面疾病，需盡快就醫檢查"
+    elif STATE[user] == 1 and (("胸悶" and "疲累") in message):
+        msg =  '''初步分析結果：\n
+        心臟、肺臟、其他\n\n
+        建議掛科：\n
+        心臟科、胸腔科\n\n
+        可能病因：\n
+        感染\n\n
+        建議：\n
+        若為心臟方面疾病，需盡快就醫檢查
+        初步分析結果：\n心肌炎\n\n建議掛科：\n胸腔內科\n\n可能病因：\n壓力過大'''
+        STATE[user] = 0
         ret_message = TextSendMessage(
                 text=msg,
                 quick_reply=QuickReply(
@@ -91,20 +91,22 @@ def handle_message(event):
                             action=MessageAction(label="相關疾病查詢", text="相關疾病查詢")
                         ),
                         QuickReplyButton(
-                            action=MessageAction(label="醫療小知識", text="醫療小知識")
+                            action=MessageAction(label="查詢附近的內科醫院", text="查詢附近的內科醫院")
+                        ),
+                        QuickReplyButton(
+                            action=MessageAction(label="其他服務", text="其他服務")
                         )
                     ]))
-    elif STATE == "diagnosis" and ((("呼吸" and "困難") or "嘨喘") in message):
-        STATE = "init"
-        DISEASE = None
-        msg =  "初步分析結果：\n"
-        msg += "氣管阻塞、氣喘、慢性阻塞性肺病(COPD)、肺栓塞\n"
-        msg += "近期covid19疫情嚴重，若仍有發燒、咳嗽等症狀同時出現，可能為新冠肺炎之感染!\n\n"
-        msg += "建議掛科：\n"
-        msg += "胸腔科、感染科\n"
-        msg += "COVID-19患者請前往急診篩檢\n\n"
-        msg += "可能病因：\n"
-        msg += "肺部感染、心衰竭"
+    elif STATE[user] == 1 and ((("呼吸" and "困難") or "嘨喘") in message):
+        STATE[user] = 0
+        msg =  '''初步分析結果：\n
+                  氣管阻塞、氣喘、慢性阻塞性肺病(COPD)、肺栓塞\n"
+                  近期covid19疫情嚴重，若仍有發燒、咳嗽等症狀同時出現，可能為新冠肺炎之感染!\n\n"
+                  建議掛科：\n
+                  胸腔科、感染科\n
+                  COVID-19患者請前往急診篩檢\n\n
+                  可能病因：\n
+                  肺部感染、心衰竭'''
         ret_message = TextSendMessage(
                 text=msg,
                 quick_reply=QuickReply(
@@ -113,7 +115,7 @@ def handle_message(event):
                             action=URIAction(label='Covid19篩檢站', uri='https://antiflu.cdc.gov.tw/ExaminationCounter')
                         )
                     ]))
-        
+    '''
     elif STATE == "diagnosis_complete" and DISEASE == "heart" and message == "相關疾病查詢":
         msg =  "1. 心肌炎\n"
         msg += "2. 心絞痛(反覆胸痛)\n"
@@ -121,90 +123,67 @@ def handle_message(event):
         msg += "4. 氣胸\n"
         msg += "5. 消化潰瘍\n"
         msg += "～～請點選您想要查詢的疾病～～"
+        STATE[user] = 0
+    '''
+    elif STATE[user] == 0 and message == "醫療小知識":
+        STATE[user] = 4
+        msg = "請問要詢問那一科呢？"
+        qr = [QuickReplyButton(action=MessageAction(label=department, text=department)) for department in DEPARTMENTS]
         ret_message = TextSendMessage(
-                text=msg,
-                quick_reply=QuickReply(
-                    items=[
-                        QuickReplyButton(
-                            action=MessageAction(label="心肌炎", text="心肌炎")
-                        ),
-                        QuickReplyButton(
-                            action=MessageAction(label="心絞痛", text="心絞痛")
-                        ),
-                        QuickReplyButton(
-                            action=MessageAction(label="急性心肌梗塞", text="急性心肌梗塞")
-                        ),
-                        QuickReplyButton(
-                            action=MessageAction(label="氣胸", text="氣胸")
-                        ),
-                        QuickReplyButton(
-                            action=MessageAction(label="消化潰瘍", text="消化潰瘍")
-                        )
-                    ]))
-        STATE = "init"
-        LAST_STATE = "init"
-        DISEASE = None
-    elif message == "心肌炎":
-        STATE = "init"
-        LAST_STATE = "init"
-        DISEASE = None
-        msg =  "心肌炎介紹\n"
-        msg += "注意! Covid19可能增加心臟疾病風險，若原本有心臟疾病的患者可能因感染covid19 加重症狀，須密切注意。\n\n"
-        msg += "心肌炎的臨床表現多種多樣，從亞臨床疾病到疲勞、胸痛、心力衰竭（HF）、心源性休克、心律失常和猝死。 由於症狀與其他疾病相似，並缺乏安全且靈敏度高的非侵入性檢查，因此可能被忽視，延誤治療。"
-        ret_message = TextSendMessage(
-                text=msg,
-                quick_reply=QuickReply(
-                    items=[
-                        QuickReplyButton(
-                            action=URIAction(label='Covid19相關資訊', uri='https://www.cdc.gov.tw/En')
-                        )
-                    ]))
-    elif STATE == "diagnosis_complete" and DISEASE == "heart" and message == "醫療小知識":
-        STATE = "init"
-        DISEASE = None
-        msg = "提供以下資訊給您參考：\nhttps://www.cdc.gov.tw/En"
-
-        ret_message = TextSendMessage(text=msg,)
-    
-    elif STATE == "init" and DISEASE == None and message == "醫療小知識":
-        STATE = "info_disease"
-        msg = "請問是什麼樣的疾病呢？"
+            text=msg,
+            quick_reply=QuickReply(items=qr)
+        )
+    elif STATE[user] == 4:
+        STATE[user] = 5
+        msg = f"請問想了解{message}的什麼疾病呢？"
         ret_message = TextSendMessage(text=msg)
-    
-    elif STATE == "info_disease":
-        STATE = "init"
+    elif STATE[user] == 6:
+        STATE[user] = 0
         msg = "提供以下資訊給您參考：\nhttps://www.cdc.gov.tw/En"
 
-        ret_message = TextSendMessage(text=msg,)
+        ret_message = TextSendMessage(text=msg)
 
-    elif STATE == "init" and message == "查詢附近的採檢站":
-        STATE = "Station"
-        msg = "點選下方按鈕輸入您的位置"
+    elif STATE[user] == 0 and message == "查詢附近的採檢站":
+        STATE[user] = 3
+        msg = "請提供您的位置"
         ret_message = TextSendMessage(
                 text=msg,
                 quick_reply=QuickReply(
                     items=[
+                        QuickReplyButton(     
+                            action=LocationAction(label="查詢附近的採檢站")
+                        ),
                         QuickReplyButton(
-                            action=LocationAction(label="點選這裡輸入您的位置")
+                            action=MessageAction(label="其他服務", text="其他服務")
                         )
                     ]))
 
-    elif STATE == "init" and message == "查詢附近的醫院":
-        STATE = "Hospital"
-        msg = "點選下方按鈕輸入您的位置"
+    elif STATE[user] == 0 and message == "查詢附近的醫院":
+        STATE[user] = 2
+        qr = [QuickReplyButton(action=MessageAction(label=department, text=department)) for department in DEPARTMENTS]
+        
+        ret_message = TextSendMessage(
+                text="要看哪一科呢?",
+                quick_reply=QuickReply(items=qr))
+    elif STATE[user] == 2:
+        # get_hospital_by_department
+        msg = "請提供您的位置"
+        DEPARTMENT[user] = message
         ret_message = TextSendMessage(
                 text=msg,
                 quick_reply=QuickReply(
                     items=[
+                        QuickReplyButton(     
+                            action=LocationAction(label="查詢附近的醫院")
+                        ),
                         QuickReplyButton(
-                            action=LocationAction(label="點選這裡輸入您的位置")
+                            action=MessageAction(label="其他服務", text="其他服務")
                         )
                     ]))
-
     else:
-        STATE = "init"
-        LAST_STATE = "init"
-        ret_message = TextSendMessage(text='請點選以下您要查詢的資訊',)
+        STATE[user] = 0
+        ret_message = TextSendMessage(text='你好！！我是 Kompanion，您的智慧醫療小助手！請問我能夠幫您什麼呢？')
+
     
     line_bot_api.reply_message(event.reply_token, ret_message)
 
@@ -214,27 +193,19 @@ ADDRESS = None
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-    global LATITUDE
-    global LONGITUDE
-    global ADDRESS
-    global STATE
 
+    global STATE
+    user = event.source.user_id
     LATITUDE = event.message.latitude
     LONGITUDE = event.message.longitude
-    ADDRESS = event.message.address
-    #msg = "您的位置為："+str(ADDRESS)+"\n\n您的緯度為：\n"+str(LATITUDE)+"\n\n您的經度為：\n"+str(LONGITUDE)
-
-    
-    if STATE == "Station":
-        msg = "離您最近的採檢站為：\n台大醫院\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/%E8%87%BA%E5%A4%A7%E9%86%AB%E9%99%A2/@25.0424548,121.5071815,16z/data=!3m1!4b1?hl=zh-TW"
-
-
-    elif STATE == "Hospital":
-        msg = "離您最近的醫院為：\n台大醫院\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/%E8%87%BA%E5%A4%A7%E9%86%AB%E9%99%A2/@25.0424548,121.5071815,16z/data=!3m1!4b1?hl=zh-TW"
-    else:
-        pass
-    STATE = "init"
-    ret_message = TextSendMessage(text=msg)
+    if STATE[user] == 3:
+        pcr_name = get_nearby_PCR((LATITUDE, LONGITUDE))
+        msg = f"離您最近的採檢站為：\n{pcr_name}\n\n打開google map以查詢位置：\nhttps://www.google.com.tw/maps/search/{pcr_name}"
+        ret_message = TextSendMessage(text=msg)
+    elif STATE[user] == 2:
+        test_flex = json.load(open("./flex/hospital.json", "r"))
+        ret_message = FlexSendMessage(alt_text='hospital', contents=test_flex)
+    STATE[user] == 0
     line_bot_api.reply_message(event.reply_token, ret_message)
 
 if __name__ == "__main__":

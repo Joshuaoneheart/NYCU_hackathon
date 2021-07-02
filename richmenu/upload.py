@@ -1,6 +1,6 @@
 import sys
 from linebot import LineBotApi
-from config import * 
+from NYCU_hackathon.config import *
 
 if CHANNEL_TOKEN is None:
     print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
@@ -14,8 +14,8 @@ line_bot_api = LineBotApi(CHANNEL_TOKEN)
 content_type = 'image/png'  # Just support JPEG or PNG, check your image type
 
 try:
-    with open('richmenu/default.png', 'rb') as f:
-        line_bot_api.set_rich_menu_image('RICH_MENU_ID', content_type, f)
+    with open('./NYCU_hackathon/richmenu/default.png', 'rb') as f:
+        line_bot_api.set_rich_menu_image('richmenu-4cf0175cb2fb38e008d79387d26eefbe', content_type, f)
 except Exception as e:
     print(e)
 
