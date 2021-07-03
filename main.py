@@ -116,12 +116,12 @@ def handle_message(event):
         
     elif STATE[user] == 4:
         STATE[user] = 5
-        msg = f"請問想了解{message}的什麼疾病呢？"
+        msg = "請問想了解{message}的什麼疾病呢？"
         ret_message = TextSendMessage(text=msg)
 
     elif STATE[user] == 5:
         STATE[user] = 0
-        msg = "提供以下資訊給您參考：\nhttps://www.cdc.gov.tw/En"
+        msg = "提供以下資訊給您參考：\nhttps://wwwv.tsgh.ndmctsgh.edu.tw/unit/10012/12856"
 
         ret_message = TextSendMessage(text=msg)
 
