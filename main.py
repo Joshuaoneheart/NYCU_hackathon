@@ -70,6 +70,7 @@ def handle_message(event):
     message = event.message.text
     if message == "back":
         STATE[user] = 0
+        ret_message = TextSendMessage(text="請問要提供您什麼服務呢")
     elif message == "初步診斷" and STATE[user] == 0:
         msg = "請簡述您的症狀"
         STATE[user] = 1
@@ -116,7 +117,7 @@ def handle_message(event):
         
     elif STATE[user] == 4:
         STATE[user] = 5
-        msg = "請問想了解{message}的什麼疾病呢？"
+        msg = f"請問想了解{message}的什麼疾病呢？"
         ret_message = TextSendMessage(text=msg)
 
     elif STATE[user] == 5:
