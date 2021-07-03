@@ -68,9 +68,7 @@ def handle_message(event):
     if user not in STATE:
         STATE[user] = 0
     message = event.message.text
-    if message == "back":
-        STATE[user] = 0
-    elif message == "初步診斷" and STATE[user] == 0:
+    if message == "初步診斷" and STATE[user] == 0:
         msg = "請簡述您的症狀"
         STATE[user] = 1
         ret_message = TextSendMessage(text=msg)
