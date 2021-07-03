@@ -167,7 +167,7 @@ def handle_message(event):
                 text="要看哪一科呢?",
                 quick_reply=QuickReply(items=qr))
 
-    elif STATE[user] == 2:
+    elif STATE[user] == 2 or message == "查詢附近的內科醫院":
         msg = "請提供您的位置"
         DEPARTMENT[user] = message
         ret_message = TextSendMessage(
